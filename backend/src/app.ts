@@ -1,6 +1,11 @@
+import "dotenv/config";
+
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+
+import authRoutes from "./modules/auth/auth.routes";
+import { errorHandler } from "./middleware/error.middleware";
 
 const app = express();
 
@@ -20,5 +25,9 @@ app.get("/api/health", (_req, res) => {
     message: "Velozity backend is running",
   });
 });
+
+app.use("/api/auth", authRoutes);
+
+app.use(errorHandler);
 
 export default app;
